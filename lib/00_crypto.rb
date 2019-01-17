@@ -1,29 +1,34 @@
-require 'Nokogiri'
+require 'nokogiri'
 require 'rubygems'
 require 'open-uri'
 
-value = []
-currency = []
+def crypto
+    
+  value = []
+  currency = []
 
-page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/"))
+  page = Nokogiri::HTML(open("https://coinmarketcap.com/all/views/all/"))
 
-page.xpath('//a[@class = "link-secondary"]').each do |devise|
+  page.xpath('//a[@class = "link-secondary"]').each do |devise|
     currency << devise.text
-end
+  end
 
 # print currency
 
-page.xpath('//a[@class = "price"]').each do |valeur|
+  page.xpath('//a[@class = "price"]').each do |valeur|
     value << valeur.text
-end
+  end
 
 # print value
 
-values = value.map{|e| e.delete('$').to_f }
+  values = value.map{|e| e.delete('$').to_f }
 
-my_hash = Hash[currency.zip(values.map)]
+  my_hash = Hash[currency.zip(values.map)]
 
-a = []
-my_hash.each {|index| a << {index[0] => index[1]}}
+  a = []
+  my_hash.each {|index| a << {index[0] => index[1]}}
 
-puts a
+  return a
+end
+
+a = crypto
