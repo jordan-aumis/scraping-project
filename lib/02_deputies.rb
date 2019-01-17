@@ -17,4 +17,4 @@ def perform
     get_deputy_email
 end
 
-puts perform
+#puts perform
